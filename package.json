@@ -1,0 +1,25 @@
+{
+    "name": "ass",
+    "displayName": "Advanced SubStation Alpha",
+    "description": "Instant view for ass files.",
+    "version": "0.0.1",
+    "engines": {
+        "vscode": "^1.34.0"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "contributes": {
+        "languages": [{
+            "id": "ass",
+            "aliases": ["ASS", "ass"],
+            "extensions": [".ass"],
+            "configuration": "./language-configuration.json"
+        }],
+        "grammars": [{
+            "language": "ass",
+            "scopeName": "source.ass",
+            "path": "./syntaxes/ass.tmLanguage.json"
+        }]
+    }
+}

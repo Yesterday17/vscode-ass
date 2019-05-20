@@ -1,0 +1,231 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "ASS",
+  "patterns": [
+    {
+      "include": "#comment"
+    },
+    {
+      "include": "#sections"
+    },
+    {
+      "include": "#lines"
+    }
+  ],
+  "repository": {
+    "sections": {
+      "begin": "^(\\[)",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.section.begin.bracket.square.ass"
+        }
+      },
+      "end": "(\\])$",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.section.begin.bracket.square.ass"
+        }
+      },
+      "patterns": [
+        {
+          "name": "support.class.ass.scriptinfo",
+          "match": "Script Info"
+        },
+        {
+          "name": "support.class.ass.styles",
+          "match": "[vV]4\\+? Styles"
+        },
+        {
+          "name": "support.class.ass.events",
+          "match": "Events"
+        },
+        {
+          "name": "support.class.ass.fonts",
+          "match": "Fonts"
+        },
+        {
+          "name": "support.class.ass.graphics",
+          "match": "Graphics"
+        },
+        {
+          "include": "#aegisub-garbage-section"
+        }
+      ]
+    },
+    "comment": {
+      "name": "comment.line.double-slash.semicolon",
+      "begin": "^(;)|(!:)",
+      "end": "$",
+      "patterns": [
+        {
+          "match": "[^\\n]*"
+        }
+      ]
+    },
+    "lines": {
+      "patterns": [
+        {
+          "match": "^([^:\\n]+)(:)\\s*([^\\n]*)$",
+          "captures": {
+            "1": {
+              "patterns": [
+                {
+                  "include": "#line-types"
+                },
+                {
+                  "include": "#additional-line-types"
+                }
+              ]
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.ass"
+            },
+            "3": {
+              "name": "support.property-value.ass"
+            }
+          }
+        }
+      ]
+    },
+    "line-types": {
+      "patterns": [
+        {
+          "name": "support.type.property-name.ass.title",
+          "comment": "This is a description of the script",
+          "match": "^Title$"
+        },
+        {
+          "name": "support.type.property-name.ass.original.script",
+          "comment": "The original author(s) of the script",
+          "match": "^Original Script$"
+        },
+        {
+          "name": "support.type.property-name.ass.original.translation",
+          "comment": "(optional) The original translator of the dialogue",
+          "match": "^Original Translation$"
+        },
+        {
+          "name": "support.type.property-name.ass.original.editing",
+          "comment": "(optional) The original script editor(s), typically whoever took the raw translation and turned it into idiomatic english and reworded for readability.",
+          "match": "^Original Editing$"
+        },
+        {
+          "name": "support.type.property-name.ass.original.timing",
+          "comment": "Original Timing",
+          "match": "^(optional) Whoever timed the original script$"
+        },
+        {
+          "name": "support.type.property-name.ass.synchpoint",
+          "comment": "(optional) Description of where in the video the script should begin playback.",
+          "match": "^Synch Point$"
+        },
+        {
+          "name": "support.type.property-name.ass.scriptupdateby",
+          "comment": "(optional) Names of any other subtitling groups who edited the original script.",
+          "match": "^Script Updated By$"
+        },
+        {
+          "name": "support.type.property-name.ass.updatedetails",
+          "comment": "The details of any updates to the original script made by other subtilting groups.",
+          "match": "^Update Details$"
+        },
+        {
+          "name": "support.type.property-name.ass.scripttype",
+          "comment": "This is the SSA script format version eg. \"V3.00\".",
+          "match": "^ScriptType$"
+        },
+        {
+          "name": "support.type.property-name.ass.collisions",
+          "comment": "This determines how subtitles are moved, when preventing onscreen collisions",
+          "match": "^Collisions$"
+        },
+        {
+          "name": "support.type.property-name.ass.playresy",
+          "comment": "This is the height of the screen used by the authors when playing the script.",
+          "match": "^PlayResY$"
+        },
+        {
+          "name": "support.type.property-name.ass.playresx",
+          "comment": "This is the width of the screen used by the authors when playing the script.",
+          "match": "^PlayResX$"
+        },
+        {
+          "name": "support.type.property-name.ass.playdepth",
+          "comment": "This is the colour depth used by the authors when playing the script.",
+          "match": "^PlayDepth$"
+        },
+        {
+          "name": "support.type.property-name.ass.timer",
+          "comment": "This is the Timer Speed for the script, as a percentage.\neg. \"100.0000\" is exactly 100%.\nThe timer speed is a time multiplier applied to SSA's clock to provide a ramp time.",
+          "match": "^Timer$"
+        },
+        {
+          "name": "support.type.property-name.ass.style",
+          "comment": "This is a Style definition, used to format text displayed by the script.",
+          "match": "^Style$"
+        },
+        {
+          "name": "support.type.property-name.ass.dialogue",
+          "comment": "This is a Dialogue event, ie. Some text to display.",
+          "match": "^Dialogue$"
+        },
+        {
+          "name": "support.type.property-name.ass.comment",
+          "comment": "This is a \"comment\" event.\nThis contains the same information as a Dialogue, Picture, Sound, Movie, or Command event, but it is ignored during script playback.",
+          "match": "^Comment$"
+        },
+        {
+          "name": "support.type.property-name.ass.picture",
+          "comment": "This is a \"picture\" event, which means SSA will display the specified .bmp, .jpg, .gif, .ico or .wmf graphic.",
+          "match": "^Picture$"
+        },
+        {
+          "name": "support.type.property-name.ass.sound",
+          "comment": "This is a \"sound\" event, which means SSA will play the specified .wav file.",
+          "match": "^Sound$"
+        },
+        {
+          "name": "support.type.property-name.ass.movie",
+          "comment": "This is a \"movie\" event, which means SSA will play the specified .avi file.",
+          "match": "^Movie$"
+        },
+        {
+          "name": "support.type.property-name.ass.command",
+          "comment": "This is a \"command\" event, which means SSA will execute the specified program as a background task.",
+          "match": "^Command$"
+        },
+        {
+          "name": "support.type.property-name.ass.wrapstyle",
+          "comment": "Defines the default wrapping style.\n0: smart wrapping, lines are evenly broken\n1: end-of-line word wrapping, only \\N breaks\n2: no word wrapping, \n \\N both breaks\n3: same as 0, but lower line gets wider.",
+          "match": "^WrapStyle$"
+        },
+        {
+          "name": "support.type.property-name.ass.format",
+          "comment": "Format line must appear before any Styles - because it defines how SSA will interpret the Style definition lines.",
+          "match": "^Format$"
+        }
+      ]
+    },
+    "additional-line-types": {
+      "patterns": [
+        {
+          "name": "support.type.property-name.ass.scaledborderandshadow",
+          "match": "^ScaledBorderAndShadow$"
+        },
+        {
+          "name": "support.type.property-name.ass.ycbcrmatrix",
+          "match": "^YCbCr Matrix$"
+        }
+      ]
+    },
+    "aegisub-garbage-section": {
+      "patterns": [
+        {
+          "name": "support.class.ass.aegisub",
+          "match": "Aegisub Project Garbage"
+        }
+      ]
+    }
+  },
+  "scopeName": "source.ass"
+}
